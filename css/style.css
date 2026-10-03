@@ -1,0 +1,1792 @@
+/* ==========================================================
+   GENERAL
+   ========================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3 {
+    font-family: 'Cinzel', serif;
+}
+
+body, p, button, nav {
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #dedede;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 92%;
+    max-width: 915px;
+    margin: 0 auto;
+}
+
+/* ==========================================================
+   LANDING PAGE (nav, hero, search bar)
+   ========================================================== */
+
+.landingpage {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+}
+
+.landing-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.landing-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 75, 85, 0.35);
+}
+
+.landing-content {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;   /* left | middle | right */
+    align-items: center;
+    padding: 35px 6%;                      /* space from the screen edges */
+}
+
+.logo img {
+    width: 250px;
+    display: block;
+}
+
+.nav-titles {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+}
+
+.nav-titles > a,
+.nav-dropdown > a {
+    position: relative;
+    display: inline-block;
+    padding: 8px 0;                    /* the ornament sits outside this box, so it never moves the text */
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
+}
+
+/* ornament.png under the link (hidden until hovered) */
+.nav-titles > a::after,
+.nav-dropdown > a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 100%;                         /* right below the text */
+    width: 100%;                       /* same width as the word */
+    min-width: 80px;                   /* keeps short words like HOME from squashing it */
+    height: 12px;
+    background: url('../images/ornament.png') center / contain no-repeat;
+    opacity: 0;
+    transform: translateX(-50%) scaleX(0.4);   /* starts small... */
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+/* Hover effect: text turns gold, lifts a little and glows; ornament grows out from the center */
+.nav-titles > a:hover,
+.nav-titles > a.active,
+.nav-dropdown:hover > a {
+    color: #E0C96B;
+}
+
+.nav-titles > a:hover,
+.nav-dropdown:hover > a {
+    transform: translateY(-2px);
+    text-shadow: 0 0 10px rgba(224, 201, 107, 0.6);
+}
+
+.nav-titles > a:hover::after,
+.nav-titles > a.active::after,
+.nav-dropdown:hover > a::after {
+    opacity: 1;
+    transform: translateX(-50%) scaleX(1);     /* ...and grows to full size */
+}
+
+/* ---------- Destination dropdown ---------- */
+
+.nav-dropdown {
+    position: relative;
+}
+
+/* little arrow next to DESTINATION */
+.arrow {
+    display: inline-block;
+    font-size: 11px;
+    transition: transform 0.3s;
+}
+
+.nav-dropdown:hover .arrow {
+    transform: rotate(180deg);
+}
+
+/* The list of nations (hidden until hovered) */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: 100;
+    min-width: 200px;
+    margin-top: 18px;
+    padding: 10px;
+    background: rgba(20, 20, 20, 0.92);
+    border: 1px solid rgba(224, 201, 107, 0.35);
+    border-radius: 14px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, 10px);
+    transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+}
+
+/* invisible bridge so the menu does not close while the mouse moves down to it */
+.dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -18px;
+    left: 0;
+    width: 100%;
+    height: 18px;
+}
+
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: #F5F0E6;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s, padding-left 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(224, 201, 107, 0.15);
+    color: #E0C96B;
+    padding-left: 22px;                /* nudges to the right on hover */
+}
+
+.inquirebtn {
+    justify-self: end;                     /* button goes to the far right */
+    display: flex;
+    align-items: center;
+    height: 48px;
+    padding: 0 22px;
+    color: #e4dd39;
+    text-decoration: none;
+    border: 1px solid #e4dd39;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.inquirebtn:hover {
+    background: #e4dd39;
+    color: #222;
+}
+
+.hero {
+    flex: 1;
+    width: 92%;
+    max-width: 1300px;
+    display: flex;
+    align-items: center;
+    padding-bottom: 5vh;
+}
+
+.hero-text {
+    flex: 1;
+    min-width: 0;
+    max-width: 750px;
+    padding-left: 35px;
+    padding-right: 30px;
+}
+
+.hero-text h1 {
+    color: #D8C477;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(44px, 5.4vw, 76px);
+    line-height: 1.05;
+    letter-spacing: 0.5px;
+    margin-bottom: 18px;
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+}
+
+.hero-text p {
+    max-width: 750px;
+    color: #F5F0E6;
+    font-size: 18px;
+    line-height: 1.55;
+    font-weight: 400;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 92%;
+    max-width: 1000px;
+    margin: 0 auto 50px;
+    padding: 14px 16px 14px 30px;
+    background: rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(14px); 
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 60px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+}
+
+.search-field {
+    flex: 1;
+    text-align: center;
+}
+
+.search-field label {
+    display: block;
+    margin-bottom: 6px;
+    color: #F5F0E6;
+    font-size: 14px;
+    font-weight: 500;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.field-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Round holder for the icon (same color as the text box) */
+
+.field-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.field-icon img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: block;
+}
+
+.search-field input {
+    width: 100%;
+    height: 44px;
+    padding: 0 16px;
+    border: none;
+    outline: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.22);
+    color: #F5F0E6;
+    font-family: inherit;
+    font-size: 14px;
+    color-scheme: dark;               /* makes the date picker icon light */
+}
+
+.search-field input::placeholder {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.search-field input:focus {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.search-btn {
+    flex-shrink: 0;
+    height: 45px;
+    padding: 0 50px;
+    background: transparent;
+    border: 2px solid #e4dd39;
+    border-radius: 30px;
+    color: #e4dd39;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 200;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-btn:hover {
+    background: #e4dd39;
+    color: #222;
+}
+
+/* ==========================================================
+   ABOUT
+   ========================================================== */
+
+.about-section {
+    position: relative;
+    padding: 100px 0;
+    overflow: hidden;
+}
+
+.about-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../images/aboutbg.png') center / cover no-repeat;
+    z-index: 0;
+}
+
+/* centered two-column layout: text | picture */
+
+.about-section .container {
+    position: relative;
+    width: 92%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    gap: 50px;
+    z-index: 1;
+}
+
+.about-content {
+    max-width: 700px;
+}
+
+.about-content h1 {
+    color: #18324A;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(30px, 3.4vw, 46px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 30px;
+}
+
+/* short gold accent line under the title */
+
+.about-content h1::after {
+    content: "";
+    display: block;
+    width: 650px;
+    height: 5px;
+    margin-top: 18px;
+    border-radius: 3px;
+    background: #E0C96B;
+}
+
+.about-content p {
+    color: #667789;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.8;
+    margin-bottom: 18px;
+}
+
+.about-content p:last-child {
+    margin-bottom: 0;
+}
+
+.about-image {
+    justify-self: center;
+    width: 108%;
+    max-width: none;
+    height: auto;
+    display: block;
+    mix-blend-mode: multiply;
+}
+
+/* ==========================================================
+   DESTINATIONS
+   ========================================================== */
+
+.destinations {
+    position: relative;
+    padding: 60px 0 70px;
+    background: url('../images/destinationbg.png') center / cover no-repeat;
+}
+
+.destinations-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.destinations-content {
+    position: relative;
+    max-width: 1300px;
+}
+
+.destinations h2 {
+    color: #D8C477;
+    font-size: 40px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.destinations-content > p {
+    margin-bottom: 45px;
+    color:ivory;
+    font-size: 15px;
+    text-align: center;
+}
+
+/* ONE ROW of banners with an arrow on each side.
+   Static for now: the row is clipped (overflow hidden), so only the first
+   few banners show and the arrows do nothing yet. */
+
+.destination-slider {
+    position: relative;
+    padding: 0 70px;                   /* room for the arrow images */
+}
+
+.destination-row {
+    --visible: 4;                      /* banners visible at once (try 5) */
+    --gap: 24px;
+
+    display: flex;
+    flex-wrap: nowrap;                 /* never wrap: always a single line */
+    gap: var(--gap);
+    padding: 14px 10px 22px;           /* room for the hover lift + shadow */
+    overflow: hidden;                  /* FUTURE: change to overflow-x: auto to enable scrolling */
+    scroll-snap-type: x mandatory;     /* ready for future scrolling */
+    scrollbar-width: none;
+}
+
+.destination-row::-webkit-scrollbar {
+    display: none;
+}
+
+/* arrow buttons: the icon is an image (images/arrow.png, pointing right) */
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.slider-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.slider-btn.prev {
+    left: 0;
+}
+
+.slider-btn.next {
+    right: 0;
+}
+
+/* the left arrow is the same image, flipped */
+
+.slider-btn.prev img {
+    transform: scaleX(-1);
+}
+
+.slider-btn:hover {
+    transform: translateY(-50%) scale(1.12);
+}
+
+.destination-card {
+    /* banner-frame.png / banner-mask.png are 992 x 1585 with a little empty
+       margin around the gold frame; these values line the layers up with the
+       visible frame so the card is exactly the size of the banner */
+    --fl: -12.05%;
+    --fr: -12.42%;
+    --ft: -0.51%;
+    --fb: 0%;
+    --fw: 124.47%;
+    --fh: 100.51%;
+
+    position: relative;
+    flex: 0 0 calc((100% - (var(--visible) - 1) * var(--gap)) / var(--visible));
+    scroll-snap-align: start;
+    aspect-ratio: 797 / 1577;          /* visible frame shape */
+    container-type: inline-size;       /* lets the name scale with the card */
+    text-decoration: none;
+    transition: transform 0.3s, filter 0.3s;
+}
+
+.destination-card:hover {
+    transform: translateY(-8px);
+    filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.55));
+}
+
+/* the photo is cut to the frame's inner shape by banner-mask.png */
+
+.destination-card img {
+    -webkit-user-drag: none;
+    user-select: none;
+    position: absolute;
+    left: var(--fl);
+    top: var(--ft);
+    width: var(--fw);
+    height: var(--fh);
+    object-fit: cover;
+    display: block;
+    -webkit-mask: url('../images/banner-mask.png') center / 100% 100% no-repeat;
+    mask: url('../images/banner-mask.png') center / 100% 100% no-repeat;
+}
+
+/* soft dark fade at the bottom so the name is readable on any photo */
+
+.destination-card::before {
+    content: "";
+    position: absolute;
+    inset: var(--ft) var(--fr) var(--fb) var(--fl);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.45) 14%, rgba(0, 0, 0, 0) 32%);
+    -webkit-mask: url('../images/banner-mask.png') center / 100% 100% no-repeat;
+    mask: url('../images/banner-mask.png') center / 100% 100% no-repeat;
+    z-index: 1;
+}
+
+/* gold frame on top (the middle of the frame is transparent) */
+
+.destination-card::after {
+    content: "";
+    position: absolute;
+    inset: var(--ft) var(--fr) var(--fb) var(--fl);
+    background: url('../images/banner-frame.png') center / 100% 100% no-repeat;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.destination-name {
+    position: absolute;
+    top: 76.5%;
+    left: 0;
+    width: 100%;
+    height: 6.5%;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #F3DE8E;
+    font-family: 'Cinzel', serif;
+    font-size: 17px;                   /* fallback */
+    font-size: 7cqw;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85);
+}
+
+/* ==========================================================
+   MEET THE DIRECTOR
+   ========================================================== */
+
+.profile-section {
+    position: relative;
+    padding: 80px 0;
+    background: url('../images/directorbg.jpg') center / cover no-repeat;
+}
+
+/* dark overlay on the background (same idea as the landing and destinations shadows) */
+.profile-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 0;
+}
+
+/* picture on the left, text right next to it.
+   The left padding sets how far the photo sits from the screen edge. */
+.profile-section .container {
+    --photo-width: 400px;              /* change this to resize the director photo */
+    --text-width: 1000px;              /* maximum width of the text column */
+
+    position: relative;
+    z-index: 2;                        /* above the shadow */
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 40px 0 clamp(24px, 7.8vw, 150px);
+    display: grid;
+    grid-template-columns: var(--photo-width) minmax(0, var(--text-width));
+    justify-content: start;
+    align-items: center;
+    gap: 40px;                         /* space between the photo and the text */
+}
+
+.profile-photo {
+    width: 100%;
+}
+
+.profile-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.profile-text h2 {
+    color: #F3DE8E;
+    font-family: 'Poppins', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+    margin-bottom: 38px;
+}
+
+/* gold line under the heading */
+
+.profile-text h2::after {
+    content: "";
+    display: block;
+    width: min(515px, 100%);
+    height: 5px;
+    margin-top: 16px;
+    border-radius: 3px;
+    background: #E8B52C;
+}
+
+.profile-text p {
+    color: ivory;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.75;
+    margin-bottom: 22px;
+}
+
+.profile-text p:last-child {
+    margin-bottom: 0;
+}
+
+
+
+/* ==========================================================
+   RESPONSIVE (all @media queries, largest to smallest)
+   ========================================================== */
+
+@media (max-width: 1100px) {
+
+    /* landing page */
+
+    .logo img {
+        width: 190px;
+    }
+
+    .nav-titles {
+        gap: 25px;
+    }
+
+}
+
+@media (max-width: 1000px) {
+
+    /* about */
+
+    .about-section {
+        padding: 70px 0;
+    }
+
+    .about-section .container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .about-content {
+        max-width: 760px;
+    }
+
+    .about-image {
+        width: 100%;
+        max-width: 640px;
+    }
+
+    /* destinations */
+
+    .destination-row {
+        --visible: 3;
+    }
+
+    /* meet the director */
+
+    .profile-section {
+        padding: 60px 0;
+    }
+
+    .profile-section .container {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        padding: 0 6%;
+        gap: 36px;
+    }
+
+    .profile-photo {
+        max-width: 300px;
+    }
+
+    .profile-text {
+        max-width: 760px;
+    }
+
+    .orn-1 {
+        top: 3%;
+        left: 5%;
+        width: 80px;
+    }
+
+    .orn-2 {
+        top: 4%;
+        right: 6%;
+        width: 60px;
+    }
+
+    .orn-3 {
+        top: 26%;
+        bottom: auto;
+        right: 5%;
+        width: 80px;
+    }
+
+}
+
+@media (max-width: 850px) {
+
+    /* landing page */
+
+    .navbar {
+        padding: 25px 4%;
+    }
+
+    .logo img {
+        width: 170px;
+    }
+
+    .nav-titles {
+        gap: 20px;
+    }
+
+    .nav-titles a {
+        font-size: 12px;
+    }
+
+    .inquirebtn {
+        height: 38px;
+        padding: 0 16px;
+        font-size: 12px;
+    }
+
+    .hero {
+        padding-bottom: 3vh;
+    }
+
+    .search-bar {
+        gap: 10px;
+        padding: 12px 12px 12px 20px;
+    }
+
+    .search-field label {
+        font-size: 12px;
+    }
+
+    .search-field input {
+        padding: 0 12px;
+        font-size: 12px;
+    }
+
+    .field-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .field-icon img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .search-btn {
+        height: 48px;
+        padding: 0 24px;
+        font-size: 13px;
+    }
+
+    .hero-text {
+        padding-left: 0;
+        padding-right: 20px;
+    }
+
+    .hero-text p {
+        font-size: 15px;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    /* landing page */
+
+    .landingpage {
+        height: auto;
+    }
+
+    .navbar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .nav-titles {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* no hover on phones, so the dropdown is hidden (DESTINATION still opens its page) */
+    .dropdown-menu,
+    .arrow {
+        display: none;
+    }
+
+    .hero {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+        padding: 40px 0;
+    }
+
+    .hero-text {
+        flex: none;
+        width: 100%;
+        max-width: none;
+        padding-right: 0;
+    }
+
+    .search-bar {
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 30px;
+        padding: 20px;
+        border-radius: 25px;
+    }
+
+    .search-field {
+        width: 100%;
+    }
+
+    .search-btn {
+        width: 100%;
+    }
+
+    /* about */
+
+    .about-section {
+        padding: 50px 0;
+    }
+
+    .about-content h1 {
+        font-size: 28px;
+        margin-bottom: 22px;
+    }
+
+    .about-content p,
+    .about-content p:first-of-type {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    /* destinations */
+
+    .destination-slider {
+        padding: 0 44px;
+    }
+
+    .destination-row {
+        --visible: 2;
+        --gap: 16px;
+    }
+
+    .slider-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    .destinations h2 {
+        font-size: 30px;
+    }
+
+    /* meet the director */
+
+    .profile-section {
+        padding: 50px 0;
+    }
+
+    .profile-photo {
+        max-width: 240px;
+    }
+
+    .profile-text h2 {
+        font-size: 24px;
+        margin-bottom: 28px;
+    }
+
+    .profile-text p {
+        font-size: 15px;
+        line-height: 1.65;
+    }
+
+    .orn-1 {
+        width: 54px;
+    }
+
+    .orn-2 {
+        display: none;
+    }
+
+    .orn-3 {
+        width: 54px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    /* destinations */
+
+    .destination-row {
+        --visible: 1;
+    }
+
+}
+
+/* ==========================================================
+   FAQ SECTION
+   ========================================================== */
+
+.faq-section {
+    position: relative;
+    padding: 115px 0 170px;      /* top space for the logo, bottom space for the big image */
+    background: url('../images/faqbg.png') center / cover no-repeat;
+    overflow: hidden;
+}
+
+/* Dark overlay on the background */
+.faq-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.60);   /* higher number = darker background */
+}
+
+/* The wide cream box */
+.faq-container {
+    position: relative;
+    width: 95%;                  /* almost the full width of the page */
+    max-width: 1850px;
+    min-height: 280px;
+    margin: 0 auto;
+    padding: 40px 60px 50px 70px;
+    background: rgba(239, 236, 210, 0.96);
+    border-left: 10px solid #d8d1a0;     /* rolled left edge */
+    border-right: 3px solid #e3dcb0;
+    border-radius: 14px;
+}
+
+/* Big title */
+.faq-title {
+    font-family: 'Cinzel', serif;
+    font-size: 40px;
+    font-weight: 600;            /* semi bold */
+    letter-spacing: 2px;
+    color: #9c7a2b;              /* antique gold */
+    margin-bottom: 40px;
+}
+
+/* Logo sticking out of the top right corner */
+.faq-logo {
+    position: absolute;
+    top: -120px;
+    right: -60px;
+    width: 250px;
+    z-index: 2;
+}
+
+/* Big image in the bottom right corner of the section */
+.faq-qm {
+    position: absolute;
+    right: 0;
+    bottom: -4.5vw;              /* the bottom edge cuts it off a little */
+    width: clamp(200px, 16vw, 320px);
+    pointer-events: none;
+}
+
+/* Questions: 5 in one row */
+.faq-grid {
+    position: relative;
+    z-index: 1;                  /* keeps opened answers above the big image */
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    align-items: start;          /* opening one answer will not stretch the others */
+}
+
+/* One question + answer */
+.faq-item {
+    border: 2px solid #14213d;       /* dark navy blue */
+    border-radius: 18px;
+    overflow: hidden;
+    background: #faf6e6;             /* calm ivory (answer area) */
+    color: #2a3350;                  /* answer text */
+}
+
+.faq-item summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    min-height: 90px;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.3;
+    cursor: pointer;
+    background: #14213d;             /* dark navy blue (question) */
+    color: #f5efd9;                  /* question text */
+    list-style: none;            /* hides the default arrow */
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;               /* hides the default arrow in Safari */
+}
+
+/* Dropdown icon (faqdropdown.png) */
+.faq-item summary::after {
+    content: "";
+    flex-shrink: 0;
+    width: 18px;
+    height: 24px;
+    background: url('../images/faqdropdown.png') center / contain no-repeat;
+    transition: transform 0.3s;
+}
+
+/* Icon turns when opened */
+.faq-item[open] summary::after {
+    transform: rotate(90deg);
+}
+
+.faq-item p {
+    padding: 16px 20px 18px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Tablet: 2 per row */
+@media (max-width: 1000px) {
+    .faq-grid { grid-template-columns: repeat(2, 1fr); }
+    .faq-title { font-size: 30px; }
+    .faq-logo { width: 130px; top: -70px; }
+    .faq-qm { width: 200px; right: 0; bottom: -40px; }
+    .faq-section { padding-bottom: 150px; }
+}
+
+/* Phone: 1 per row */
+@media (max-width: 600px) {
+    .faq-container { padding: 25px 20px 40px; min-height: 0; }
+    .faq-title { font-size: 18px; }
+    .faq-logo { width: 90px; top: -50px; right: -15px; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .faq-qm { display: none; }
+    .faq-section { padding-bottom: 80px; }
+}
+
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 20px 22px;         /* small padding = footer only as tall as its content */
+    background: #1a2766;             /* dark navy */
+    font-family: 'Lora', serif;
+    color: #f4f1e6;
+    text-align: center;
+}
+
+/* Logo with a gold line on top */
+.footer-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-line-top {
+    width: 300px;
+    max-width: 80%;
+    height: 1.5px;
+    margin-bottom: 8px;
+    background: linear-gradient(to right, transparent, #f0c25a, transparent);
+}
+
+.footer-logo img {
+    height: 60px;
+}
+
+/* Tagline */
+.footer-tagline {
+    margin-top: 10px;
+    font-size: 18px;
+    font-style: italic;
+    letter-spacing: 3px;
+}
+
+/* Page links with gold dividers */
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.footer-links a {
+    padding: 0 35px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: #f4f1e6;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-links a + a {
+    border-left: 1.5px solid #f0c25a;
+}
+
+.footer-links a:hover {
+    color: #f0c25a;
+}
+
+/* Social icons */
+.footer-socials {
+    display: flex;
+    gap: 35px;
+    margin-top: 18px;
+}
+
+.footer-socials img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    transition: transform 0.2s;
+}
+
+.footer-socials a:hover img {
+    transform: translateY(-3px);
+}
+
+/* Plain gold line */
+.footer-divider {
+    width: 890px;
+    max-width: 90%;
+    height: 1.5px;
+    margin-top: 18px;
+    background: linear-gradient(to right, transparent, #f0c25a 15%, #f0c25a 85%, transparent);
+}
+
+/* Copyright */
+.footer-copy {
+    margin-top: 12px;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+/* Phone */
+@media (max-width: 700px) {
+    .footer-logo img { height: 50px; }
+    .footer-tagline { font-size: 14px; letter-spacing: 2px; }
+    .footer-links a { padding: 4px 14px; font-size: 15px; }
+    .footer-socials { gap: 26px; }
+    .footer-copy { font-size: 10px; letter-spacing: 1px; }
+}
+
+
+/* ==========================================================
+   MONDSTADT PAGE
+   ========================================================== */
+
+/* Dropdown parent shows gold + ornament when it is the current page */
+.nav-dropdown > a.active {
+    color: #E0C96B;
+}
+
+.nav-dropdown > a.active::after {
+    opacity: 1;
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* ---------- Section 1: Hero ---------- */
+
+.mond-hero {
+    background: url('../images/mondstadt.png') center / cover no-repeat;
+}
+
+/* Shadow over the picture: same as the home page (.landing-shadow), so no extra style is needed.
+   To make it darker or lighter, change the last number in rgba(20, 75, 85, 0.35) under .landing-shadow. */
+
+.mond-text {
+    max-width: 600px;
+}
+
+.mond-tagline {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(26px, 3vw, 42px);
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+.mond-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #f1ead2;
+}
+
+.mond-line {
+    width: 90px;
+    height: 1px;
+    background: #f1ead2;
+}
+
+.mond-title {
+    margin-top: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(48px, 7vw, 100px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 3px;
+    color: #f2d14b;
+    text-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+.mond-desc {
+    max-width: 480px;
+    margin-top: 18px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.mond-btn {
+    display: inline-block;
+    margin-top: 26px;
+    padding: 14px 30px;
+    background: #f2d14b;
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #2a2410;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.mond-btn:hover {
+    background: #ffe27a;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 700px) {
+    .mond-label { font-size: 10px; letter-spacing: 2px; }
+    .mond-line { width: 40px; }
+    .mond-desc { font-size: 15px; }
+}
+
+/* ---------- Section 2: About Mondstadt ---------- */
+
+.mond-about {
+    display: flex;
+    align-items: center;
+    aspect-ratio: 3 / 1;                 /* keeps the shape of the background picture */
+    min-height: 300px;
+    padding: 40px 0 40px 10.5%;
+    background: url('../images/mondstadtaboutbg.png') center / 100% 100% no-repeat;
+}
+
+/* Text sizes grow with the screen (vw) so everything stays in proportion with the background */
+.mond-about-text {
+    width: 58%;
+}
+
+.mond-about-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(13px, 1.4vw, 26px);
+    font-weight: 700;
+    color: #1a1a6b;                      /* dark navy */
+}
+
+/* gold star ornament (faqdropdown.png) */
+.mond-about-label img {
+    height: 1.7em;
+}
+
+.mond-about h2 {
+    margin-top: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(22px, 3.2vw, 60px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a1a6b;
+}
+
+.mond-about-desc {
+    margin-top: clamp(12px, 1.8vw, 32px);
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(13px, 1.6vw, 28px);
+    line-height: 1.55;
+    color: #3d3f9c;                      /* indigo blue */
+}
+
+@media (max-width: 700px) {
+    .mond-about {
+        aspect-ratio: auto;
+        padding: 50px 8%;
+    }
+    .mond-about-text { width: 100%; }
+}
+
+/* ---------- Section 3: Featured Stops ---------- */
+
+.mond-stops {
+    padding: 60px 0 70px;
+    background: url('../images/mondstadtstops.png') center / cover no-repeat;
+    text-align: center;
+}
+
+.mond-stops-head h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(26px, 2.8vw, 56px);
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ebcb7f;                       /* gold */
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+}
+
+.mond-stops-head p {
+    margin-top: 4px;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(12px, 1.1vw, 22px);
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* 3 framed pictures in one row */
+.mond-stops-row {
+    display: flex;
+    justify-content: center;
+    gap: 2%;
+    width: 92%;
+    max-width: 1700px;
+    margin: 30px auto 0;
+}
+
+.mond-stop {
+    flex: 1;
+    transition: transform 0.3s;
+}
+
+.mond-stop:hover {
+    transform: translateY(-6px) scale(1.02);
+}
+
+/* pin icon + name above each picture */
+.mond-stop-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(13px, 1.3vw, 26px);
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.mond-stop-name img {
+    height: 1.6em;                        /* pin icon size (shown in its own colors) */
+}
+
+.mond-stop-img {
+    display: block;
+    width: 100%;
+}
+
+/* Phone: one picture per row */
+@media (max-width: 700px) {
+    .mond-stops-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .mond-stop { width: 100%; max-width: 480px; }
+}
+
+
+/* ---------- Section 4: Tour Package ---------- */
+
+.mond-package {
+    padding: 35px 0 45px;
+    background: #faf9f6;
+    font-family: 'Poppins', sans-serif;
+    color: #2c4a6e;
+}
+
+.pkg-wrap {
+    width: 94%;
+    max-width: 1650px;
+    margin: 0 auto;
+}
+
+/* ----- top ----- */
+.pkg-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.pkg-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    letter-spacing: 5px;
+}
+
+.pkg-label span {
+    width: 40px;
+    height: 1.5px;
+    background: #b8964f;
+}
+
+.pkg-title {
+    margin-top: 2px;
+    font-family: 'Lora', serif;
+    font-size: clamp(38px, 4.2vw, 70px);
+    font-weight: 700;
+    letter-spacing: 3px;
+    line-height: 1.1;
+    color: #1f4670;
+}
+
+.pkg-sub {
+    margin-top: 4px;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 7px;
+    color: #1f4670;
+}
+
+.pkg-tag {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 12px 24px;
+    background: #ece0c4;
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    white-space: nowrap;
+}
+
+.pkg-tag-line {
+    width: 1.5px;
+    height: 22px;
+    background: #b8964f;
+}
+
+/* ----- 3 columns: picture | details | side cards ----- */
+.pkg-main {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 0.7fr;
+    gap: 36px;
+    margin-top: 16px;
+}
+
+/* column 1 */
+.pkg-photo {
+    width: 100%;
+    height: 100%;
+    min-height: 380px;
+    object-fit: cover;
+    border-radius: 18px;
+    outline: 2px solid #c9a24e;          /* thin gold frame (delete these 2 lines for no frame) */
+    outline-offset: 5px;
+}
+
+/* column 2 */
+.pkg-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.pkg-days {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 5px;
+    color: #1f4670;
+}
+
+.pkg-days img { height: 28px; }
+
+.pkg-days-line {
+    width: 70px;
+    height: 1.5px;
+    background: #b8964f;
+}
+
+.pkg-desc {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: clamp(15px, 1.2vw, 20px);
+    line-height: 1.55;
+}
+
+.pkg-stops h3,
+.pkg-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 5px;
+    color: #1f4670;
+}
+
+.pkg-stops h3 img { height: 26px; }
+
+.pkg-stops ul { margin-top: 6px; }
+
+.pkg-stops li,
+.pkg-card li {
+    position: relative;
+    list-style: none;
+}
+
+.pkg-stops li {
+    padding: 6px 0 6px 36px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* gold dots */
+.pkg-stops li::before,
+.pkg-card li::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 6px;
+    width: 9px;
+    height: 9px;
+    margin-top: -4px;
+    background: #b8964f;
+    border-radius: 50%;
+}
+
+.pkg-small {
+    font-size: 12px;
+    letter-spacing: 5px;
+    color: #6f7d8f;
+}
+
+.pkg-amount {
+    margin: 2px 0;
+    font-family: 'Lora', serif;
+    font-size: clamp(32px, 2.8vw, 48px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: #1f4670;
+}
+
+.pkg-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 14px;
+    padding: 14px 30px;
+    background: #b8964f;
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #fff;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.pkg-btn span {
+    font-size: 18px;
+    transition: transform 0.2s;
+}
+
+.pkg-btn:hover {
+    background: #9d7d3a;
+    transform: translateY(-3px);
+}
+
+.pkg-btn:hover span { transform: translateX(5px); }
+
+/* column 3 */
+.pkg-side {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pkg-card {
+    padding: 16px 24px;
+    background: #f3f2ef;
+    border-radius: 18px;
+}
+
+.pkg-card h3 img { height: 24px; }
+
+.pkg-card ul { margin-top: 8px; }
+
+.pkg-card li {
+    padding: 3px 0 3px 24px;
+    font-size: 13.5px;
+}
+
+.pkg-card li::before {
+    left: 2px;
+    width: 6px;
+    height: 6px;
+    margin-top: -3px;
+}
+
+/* the 4 info items (icon on the left, text on the right) */
+.pkg-info { padding: 6px 24px; }
+
+.pkg-info-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+}
+
+.pkg-info-item + .pkg-info-item {
+    border-top: 1.5px solid #dcd8cc;
+}
+
+.pkg-info-item img {
+    width: 34px;
+    flex-shrink: 0;
+}
+
+.pkg-info-item h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f4670;
+}
+
+.pkg-info-item p {
+    margin-top: 2px;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+/* Tablet: picture + details side by side, side cards below */
+@media (max-width: 1100px) {
+    .pkg-main { grid-template-columns: 1fr 1fr; }
+    .pkg-side {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .pkg-info { grid-column: 1 / -1; }
+}
+
+/* Phone */
+@media (max-width: 650px) {
+    .pkg-top { flex-direction: column; }
+    .pkg-sub { letter-spacing: 4px; font-size: 13px; }
+    .pkg-main { grid-template-columns: 1fr; }
+    .pkg-photo { min-height: 240px; }
+    .pkg-side { grid-template-columns: 1fr; }
+}
