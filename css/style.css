@@ -1795,3 +1795,528 @@ body {
     .pkg-photo { min-height: 240px; }
     .pkg-side { grid-template-columns: 1fr; }
 }
+
+/* ==========================================================
+   SNEZHNAYA PAGE
+   ========================================================== */
+
+/* Dropdown parent shows gold + ornament when it is the current page */
+.nav-dropdown > a.active {
+    color: #102A5C;
+}
+
+.nav-dropdown > a.active::after {
+    opacity: 1;
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* ---------- Section 1: Hero ---------- */
+
+.snez-hero {
+    background: url('../images/snezhnaya.png') center / cover no-repeat;
+}
+
+/* Shadow over the picture: same as the home page (.landing-shadow), so no extra style is needed.
+   To make it darker or lighter, change the last number in rgba(20, 75, 85, 0.35) under .landing-shadow. */
+
+.snez-text {
+    max-width: 600px;
+}
+
+.snez-tagline {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(26px, 3vw, 42px);
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+.snez-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #f1ead2;
+}
+
+.snez-line {
+    width: 90px;
+    height: 1px;
+    background: #f1ead2;
+}
+
+.snez-title {
+    margin-top: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(48px, 7vw, 100px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 3px;
+    color: #f2d14b;
+    text-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+.snez-desc {
+    max-width: 480px;
+    margin-top: 18px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.snez-btn {
+    display: inline-block;
+    margin-top: 26px;
+    padding: 14px 30px;
+    background: #f2d14b;
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #2a2410;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.snez-btn:hover {
+    background: #ffe27a;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 700px) {
+    .mond-label { font-size: 10px; letter-spacing: 2px; }
+    .mond-line { width: 40px; }
+    .mond-desc { font-size: 15px; }
+}
+
+/* ---------- Section 2: About Snezhnaya ---------- */
+
+.snez-about {
+    display: flex;
+    align-items: center;
+    aspect-ratio: 3 / 1;                 /* keeps the shape of the background picture */
+    min-height: 300px;
+    padding: 40px 0 40px 10.5%;
+    background: url('../images/snezaboutbg.png') center / 100% 100% no-repeat;
+}
+
+/* Text sizes grow with the screen (vw) so everything stays in proportion with the background */
+.snez-about-text {
+    width: 58%;
+}
+
+.snez-about-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(13px, 1.4vw, 26px);
+    font-weight: 700;
+    color: #1a1a6b;                      /* dark navy */
+}
+
+/* gold star ornament (faqdropdown.png) */
+.snez-about-label img {
+    height: 1.7em;
+}
+
+.snez-about h2 {
+    margin-top: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(22px, 3.2vw, 60px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a1a6b;
+}
+
+.snez-about-desc {
+    margin-top: clamp(12px, 1.8vw, 32px);
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(13px, 1.6vw, 28px);
+    line-height: 1.55;
+    color: #3d3f9c;                      /* indigo blue */
+}
+
+@media (max-width: 700px) {
+    .snez-about {
+        aspect-ratio: auto;
+        padding: 50px 8%;
+    }
+    .snez-about-text { width: 100%; }
+}
+
+/* ---------- Section 3: Featured Stops ---------- */
+
+.snez-stops {
+    padding: 60px 0 70px;
+    background: url('../images/framesnez.png') center / cover no-repeat;
+    text-align: center;
+}
+
+.snez-stops-head h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(26px, 2.8vw, 56px);
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ebcb7f;                       /* gold */
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+}
+
+.snez-stops-head p {
+    margin-top: 4px;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(12px, 1.1vw, 22px);
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* 3 framed pictures in one row */
+.snez-stops-row {
+    display: flex;
+    justify-content: center;
+    gap: 2%;
+    width: 92%;
+    max-width: 1700px;
+    margin: 30px auto 0;
+}
+
+.snez-stop {
+    flex: 1;
+    transition: transform 0.3s;
+}
+
+.snez-stop:hover {
+    transform: translateY(-6px) scale(1.02);
+}
+
+/* pin icon + name above each picture */
+.snez-stop-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(13px, 1.3vw, 26px);
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.snez-stop-name img {
+    height: 1.6em;                        /* pin icon size (shown in its own colors) */
+}
+
+.snez-stop-img {
+    display: block;
+    width: 100%;
+}
+
+/* Phone: one picture per row */
+@media (max-width: 700px) {
+    .snez-stops-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .snez-stop { width: 100%; max-width: 480px; }
+}
+
+
+/* ---------- Section 4: Tour Package ---------- */
+
+.snez-package {
+    padding: 35px 0 45px;
+    background: #faf9f6;
+    font-family: 'Poppins', sans-serif;
+    color: #2c4a6e;
+}
+
+.pkg-wrap {
+    width: 94%;
+    max-width: 1650px;
+    margin: 0 auto;
+}
+
+/* ----- top ----- */
+.pkg-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.pkg-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    letter-spacing: 5px;
+}
+
+.pkg-label span {
+    width: 40px;
+    height: 1.5px;
+    background: #b8964f;
+}
+
+.pkg-title {
+    margin-top: 2px;
+    font-family: 'Lora', serif;
+    font-size: clamp(38px, 4.2vw, 70px);
+    font-weight: 700;
+    letter-spacing: 3px;
+    line-height: 1.1;
+    color: #1f4670;
+}
+
+.pkg-sub {
+    margin-top: 4px;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 7px;
+    color: #1f4670;
+}
+
+.pkg-tag {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 12px 24px;
+    background: #ece0c4;
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    white-space: nowrap;
+}
+
+.pkg-tag-line {
+    width: 1.5px;
+    height: 22px;
+    background: #b8964f;
+}
+
+/* ----- 3 columns: picture | details | side cards ----- */
+.pkg-main {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 0.7fr;
+    gap: 36px;
+    margin-top: 16px;
+}
+
+/* column 1 */
+.pkg-photo {
+    width: 100%;
+    height: 100%;
+    min-height: 380px;
+    object-fit: cover;
+    border-radius: 18px;
+    outline: 2px solid #c9a24e;          /* thin gold frame (delete these 2 lines for no frame) */
+    outline-offset: 5px;
+}
+
+/* column 2 */
+.pkg-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.pkg-days {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 5px;
+    color: #1f4670;
+}
+
+.pkg-days img { height: 28px; }
+
+.pkg-days-line {
+    width: 70px;
+    height: 1.5px;
+    background: #b8964f;
+}
+
+.pkg-desc {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: clamp(15px, 1.2vw, 20px);
+    line-height: 1.55;
+}
+
+.pkg-stops h3,
+.pkg-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 5px;
+    color: #1f4670;
+}
+
+.pkg-stops h3 img { height: 26px; }
+
+.pkg-stops ul { margin-top: 6px; }
+
+.pkg-stops li,
+.pkg-card li {
+    position: relative;
+    list-style: none;
+}
+
+.pkg-stops li {
+    padding: 6px 0 6px 36px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* gold dots */
+.pkg-stops li::before,
+.pkg-card li::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 6px;
+    width: 9px;
+    height: 9px;
+    margin-top: -4px;
+    background: #b8964f;
+    border-radius: 50%;
+}
+
+.pkg-small {
+    font-size: 12px;
+    letter-spacing: 5px;
+    color: #6f7d8f;
+}
+
+.pkg-amount {
+    margin: 2px 0;
+    font-family: 'Lora', serif;
+    font-size: clamp(32px, 2.8vw, 48px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: #1f4670;
+}
+
+.pkg-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 14px;
+    padding: 14px 30px;
+    background: #b8964f;
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #fff;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.pkg-btn span {
+    font-size: 18px;
+    transition: transform 0.2s;
+}
+
+.pkg-btn:hover {
+    background: #9d7d3a;
+    transform: translateY(-3px);
+}
+
+.pkg-btn:hover span { transform: translateX(5px); }
+
+/* column 3 */
+.pkg-side {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pkg-card {
+    padding: 16px 24px;
+    background: #f3f2ef;
+    border-radius: 18px;
+}
+
+.pkg-card h3 img { height: 24px; }
+
+.pkg-card ul { margin-top: 8px; }
+
+.pkg-card li {
+    padding: 3px 0 3px 24px;
+    font-size: 13.5px;
+}
+
+.pkg-card li::before {
+    left: 2px;
+    width: 6px;
+    height: 6px;
+    margin-top: -3px;
+}
+
+/* the 4 info items (icon on the left, text on the right) */
+.pkg-info { padding: 6px 24px; }
+
+.pkg-info-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+}
+
+.pkg-info-item + .pkg-info-item {
+    border-top: 1.5px solid #dcd8cc;
+}
+
+.pkg-info-item img {
+    width: 34px;
+    flex-shrink: 0;
+}
+
+.pkg-info-item h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f4670;
+}
+
+.pkg-info-item p {
+    margin-top: 2px;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+/* Tablet: picture + details side by side, side cards below */
+@media (max-width: 1100px) {
+    .pkg-main { grid-template-columns: 1fr 1fr; }
+    .pkg-side {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .pkg-info { grid-column: 1 / -1; }
+}
+
+/* Phone */
+@media (max-width: 650px) {
+    .pkg-top { flex-direction: column; }
+    .pkg-sub { letter-spacing: 4px; font-size: 13px; }
+    .pkg-main { grid-template-columns: 1fr; }
+    .pkg-photo { min-height: 240px; }
+    .pkg-side { grid-template-columns: 1fr; }
+}
