@@ -1286,6 +1286,10 @@ body {
     background: url('../images/mondstadt.png') center / cover no-repeat;
 }
 
+.inazuma-hero {
+    background: url('../images/inazuma.webp') center / cover no-repeat;
+}
+
 /* Shadow over the picture: same as the home page (.landing-shadow), so no extra style is needed.
    To make it darker or lighter, change the last number in rgba(20, 75, 85, 0.35) under .landing-shadow. */
 
@@ -1770,6 +1774,7 @@ body {
     font-size: 13px;
     line-height: 1.45;
 }
+
 
 /* Tablet: picture + details side by side, side cards below */
 @media (max-width: 1100px) {
